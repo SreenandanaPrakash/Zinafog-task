@@ -1,0 +1,78 @@
+<odoo>
+    <report id="sales_wise_report"
+            model="sale.order"
+            string="Sales Report"
+            report_type="qweb-pdf"
+            name="zinfog_task.report_sales_report"
+            file="zinfog_task.report_sales_report"
+            menu="False"/>
+
+    <template id="report_sales_report">
+        <t t-call="web.html_container">
+            <div class="page">
+                <h2 style="text-align:center;">Sales Report</h2>
+                <br/>
+                <br/>
+                <h3>Date from:
+                    <t t-if="form_data.get('start_date')">
+                        <t t-esc="form_data['start_date']">
+                        </t>
+                    </t>
+                </h3>
+                <h3>Date to:
+                    <t t-if="form_data.get('end_date')">
+                        <t t-esc="form_data['end_date']">
+                        </t>
+                    </t>
+                </h3>
+                <br/>
+                <br/>
+                <t t-set="counter" t-value="1"/>
+                <t t-foreach="report_data" t-as="o">
+                    <div>
+                        <strong>No:</strong> <t t-esc="counter"/>
+                    </div>
+                    <div>
+                        <strong>Order Name:</strong> <t t-esc="o['name']"/>
+                    </div>
+                    <div>
+                        <strong>Customer:</strong> <t t-esc="o['partner_id']"/>
+                    </div>
+                    <div>
+                        <strong>Created On:</strong> <t t-esc="o['created_on']"/>
+                    </div>
+                    <div>
+                        <strong>Total Amount:</strong> <t t-esc="o['total_amount']"/>
+                    </div>
+                    <br/>
+                    <br/>
+                    <table class="table table-condensed" border="1" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Description</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="o['order_line']" t-as="line">
+                                <td><t t-esc="line['product_id']"/></td>
+                                <td><t t-esc="line['description']"/></td>
+                                <td><t t-esc="line['quantity']"/></td>
+                                <td><t t-esc="line['unit_price']"/></td>
+                                <td><t t-esc="line['amount']"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <br/>
+                    <t t-set="counter" t-value="counter + 1"/>
+                </t>
+            </div>
+        </t>
+    </template>
+
+
+</odoo>

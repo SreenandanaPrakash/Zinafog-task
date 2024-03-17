@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--         Adding the delivery charges field to the Sale Order form view-->
+            <record id="view_sale_order_form_inherit_delivery" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.delivery</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tax_totals_json']" position="before">
+                    <group class="oe_subtotal_footer oe_right" >
+                        <field name="delivery_charge"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+
+<!--        invoice with delivery charge-->
+            <record id="account_invoice_form_inherit" model="ir.ui.view">
+            <field name="name">account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tax_totals_json']" position="before">
+                     <group class="oe_subtotal_footer oe_right"  name="delivery_charge">
+                        <field name="delivery_charge"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+
+</odoo>
+
+
+
+
+
+
