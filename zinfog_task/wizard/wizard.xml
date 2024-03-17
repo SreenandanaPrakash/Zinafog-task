@@ -37,5 +37,8 @@
               parent="sale.menu_sale_report"
               action="action_sale_order_report_wizard"/>
 
+
+        
+
     </data>
 </odoo>
